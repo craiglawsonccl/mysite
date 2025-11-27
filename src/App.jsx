@@ -19,7 +19,7 @@ function ScrollToHash() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/mysite">
       <ScrollToHash />
       <Routes>
         <Route path="/" element={<Home />} />
