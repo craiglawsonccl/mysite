@@ -1,7 +1,7 @@
 // src/components/GlassNav.jsx
 import { useEffect, useState } from "react";
 import "./GlassSurface.css";
-
+import { Link } from "react-router-dom";
 const NAV_ITEMS = [
   { id: "features", label: "Coaching", href: "#features" },
   { id: "about", label: "About Me", href: "#about" },
@@ -91,9 +91,9 @@ export default function GlassNav() {
             </button>
           ))}
 
-          <a href="/links" className="nav-link nav-link-alt">
+          <Link className="glassnav-inner-link" to="/links">
             Links
-          </a>
+          </Link>
         </nav>
 
         {/* Mobile burger */}
