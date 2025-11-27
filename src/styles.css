@@ -1,0 +1,460 @@
+/* fixed, centered glass nav */
+.glassnav-wrap{
+  position: fixed;
+  top: 16px;
+  left: 0; right: 0;
+  display: grid;
+  place-items: center;
+  z-index: 100; /* above content */
+  pointer-events: none; /* so clicks pass through outside the pill */
+}
+
+/* re-enable interaction inside the glass surface */
+.glassnav, .glassnav-inner{ pointer-events: auto; }
+
+/* inner layout */
+.glassnav-inner{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  gap: 12px;
+}
+
+/* brand */
+.glassnav-inner .brand{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+.brand-dot{
+  width: 22px; height: 22px; border-radius: 999px;
+  background: radial-gradient(45% 45% at 35% 35%, #fff, #b7c2ff);
+  box-shadow: 0 4px 12px rgba(154,164,255,.35);
+}
+
+/* links */
+.glassnav-inner .links{
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+}
+.glassnav-inner .links a{
+  text-decoration: none; opacity: .95;
+  font-weight: 700; padding: 8px 12px; border-radius: 999px;
+}
+.glassnav-inner .links a:hover{ opacity: 1 }
+.glassnav-inner .links .cta{
+  background:#fff; color:#111; font-weight: 800;
+}
+.glassnav-inner .links .alt{
+  border:1px solid rgba(255,255,255,.35);
+}
+
+/* give the page some top breathing room so content doesn't hide under the fixed nav */
+:root{ --nav-offset: 96px; }
+.hero{ padding-top: calc(var(--nav-offset) + 40px); }
+section:first-of-type{ padding-top: calc(var(--nav-offset) + 40px); }
+/* 1) Make the container truly centered and full width up to --max */
+.container{
+  max-width: var(--max);
+  width: min(100% - 44px, var(--max)); /* accounts for 22px section padding */
+  margin-inline: auto;                 /* centers horizontally */
+}
+
+/* 2) Kill any tiny horizontal overflow from parallax/filters etc. */
+html, body { overflow-x: hidden; }
+
+/* 3) Center section content + headings */
+section .container{ display:grid; justify-items:center; }
+section h1, section h2, section p.lead{ text-align:center; }
+
+/* 4) Replace masonry columns with a responsive grid that fills the row */
+.masonry{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  width: 100%;
+}
+.tile{ margin: 0; break-inside:auto; } /* safe with grid */
+
+/* 5) Keep forms and logo grids centered */
+form{ margin: 0 auto; width: 100%; max-width: 720px; }
+.logos{ justify-items:center; }
+/* LINKS PAGE LAYOUT */
+.links-wrap{
+  width: 100vw;                 /* span full viewport width */
+  min-height: 100svh;           /* fill height */
+  display: grid;
+  place-items: center;          /* dead-center children */
+  padding: 32px 16px;
+  background: #0f0f10;          /* same site bg */
+  color: #fff;
+}
+
+.links-card{
+  width: min(560px, 92vw);      /* fixed max, responsive */
+  margin: 0 auto;               /* belt & braces centering */
+}
+
+/* guard against any parent flex pushing left */
+#root, body, html{ width:100%; }
+
+.client-stories-actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+/* CLIENT STORY MODAL
+   ================== */
+.story-meta {
+  color: #cfd6dd;
+  font-size: 0.95rem;
+}
+
+
+/* ─── Client Story modal overlay ───────────────────────────── */
+
+.client-story-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* above everything */
+}
+
+/* main card */
+.client-story-modal {
+  position: relative;
+  width: min(1100px, 92vw);
+  max-height: 90vh;
+  background: #05070b;
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+
+/* desktop: image left, copy right */
+.client-story-modal-layout {
+  display: flex;
+  flex: 1;
+}
+
+/* image side */
+.client-story-image-wrap {
+  position: relative;
+  flex: 1 1 55%;
+  min-height: 260px;
+  overflow: hidden;
+}
+
+.client-story-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* copy side */
+.client-story-copy {
+  flex: 1 1 45%;
+  padding: 32px 32px 28px;
+  position: relative;
+}
+
+/* mobile: stack image on top */
+@media (max-width: 768px) {
+  .client-story-modal {
+    width: min(520px, 94vw);
+    max-height: 96vh;
+    border-radius: 26px;
+  }
+
+  .client-story-modal-layout {
+    flex-direction: column;
+  }
+
+  .client-story-image-wrap {
+    flex: 0 0 auto;
+    height: 240px;
+  }
+
+  .client-story-copy {
+    padding: 24px 20px 22px;
+  }
+}
+
+/* ─── Buttons: X + arrows (always visible) ─────────────────── */
+
+.client-story-close,
+.client-story-navbtn {
+  position: absolute;
+  z-index: 5;            /* sits above image and content */
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: rgba(0, 0, 0, 0.55);
+  padding: 0;
+  cursor: pointer;
+  display: flex;         /* ALWAYS flex – no media-query hiding */
+  align-items: center;
+  justify-content: center;
+}
+
+/* close (X) */
+.client-story-close {
+  top: 18px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+}
+
+/* arrows share pill sizing */
+.client-story-navbtn {
+  width: 56px;
+  height: 36px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* left / right placement */
+.client-story-navbtn.left {
+  left: 18px;
+}
+
+.client-story-navbtn.right {
+  right: 18px;
+}
+
+/* inner span holds the icon and fixes centering */
+.client-story-close span,
+.client-story-navbtn span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  line-height: 0;       /* kill baseline weirdness */
+}
+
+/* subtle hover */
+.client-story-close:hover,
+.client-story-navbtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* mobile: keep everything visible, just sit on top */
+@media (max-width: 768px) {
+  .client-story-close {
+    top: 16px;
+    right: 16px;
+  }
+
+  .client-story-navbtn {
+    top: auto;
+    bottom: 18px;
+    transform: none;
+  }
+
+  .client-story-navbtn.left {
+    left: 18px;
+  }
+
+  .client-story-navbtn.right {
+    right: 18px;
+  }
+}
+
+/* ─── Client Story modal overlay ───────────────────────────── */
+
+.client-story-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.68);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* main card */
+.client-story-modal {
+  position: relative;
+  width: min(1100px, 92vw);
+  max-height: 90vh;
+  background: #05070b;
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+}
+
+/* layout */
+.client-story-modal-layout {
+  display: flex;
+  flex: 1;
+}
+
+/* left: image */
+.client-story-image-wrap {
+  position: relative;
+  flex: 1 1 55%;
+  min-height: 260px;
+  overflow: hidden;
+}
+
+.client-story-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* right: text */
+.client-story-copy {
+  flex: 1 1 45%;
+  padding: 32px 32px 28px;
+  position: relative;
+}
+
+/* ─── Buttons: X + arrows (always visible) ─────────────────── */
+
+.client-story-close,
+.client-story-navbtn {
+  position: absolute;
+  z-index: 5;
+  border-radius: 999px;
+  background: transparent;          /* start almost clear */
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;                 /* for the radial reveal */
+}
+
+/* close (X) */
+.client-story-close {
+  top: 18px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+}
+
+/* arrows share pill sizing */
+.client-story-navbtn {
+  width: 56px;
+  height: 36px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* left / right placement */
+.client-story-navbtn.left  { left: 18px; }
+.client-story-navbtn.right { right: 18px; }
+
+/* inner span holds the icon and fixes centering */
+.client-story-close span,
+.client-story-navbtn span {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  line-height: 0;
+}
+
+/* radial “ink” background */
+.client-story-close::before,
+.client-story-navbtn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(0, 0, 0, 0.55);
+  transform: scale(0);
+  opacity: 0.2;                    /* very light idle state */
+  transition:
+    transform 180ms ease-out,
+    opacity 180ms ease-out;
+}
+
+/* subtle ring so they’re visible even at rest */
+.client-story-close,
+.client-story-navbtn {
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
+}
+
+/* hover / focus: grow the dark area from centre */
+.client-story-close:hover::before,
+.client-story-navbtn:hover::before,
+.client-story-close:focus-visible::before,
+.client-story-navbtn:focus-visible::before {
+  transform: scale(1);
+  opacity: 0.9;
+}
+
+
+/* ─── mobile ─────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .client-story-modal {
+    width: min(520px, 94vw);
+    max-height: 96vh;
+    border-radius: 26px;
+  }
+
+  .client-story-modal-layout {
+    flex-direction: column;
+  }
+
+  .client-story-image-wrap {
+    height: 240px;
+  }
+
+  .client-story-copy {
+    padding: 24px 20px 80px;
+  }
+
+  .client-story-close {
+    top: 16px;
+    right: 16px;
+  }
+
+  .client-story-navbtn {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+}
+/* allow scrolling inside the modal, not the page */
+.client-story-overlay {
+  overflow-y: auto;
+}
+
+.client-story-modal {
+  max-height: 90vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.client-story-modal-layout {
+  flex: 1;
+  max-height: 100%;
+  overflow-y: auto;   /* scroll inside card if text is long */
+}
+
+
+
