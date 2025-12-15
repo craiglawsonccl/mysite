@@ -7,6 +7,8 @@ import heroImg3 from "../assets/imgs/hero3.jpeg";
 
 import DanPfp from "../assets/imgs/Danpfp.jpg";
 
+const BASE_URL = import.meta.env.BASE_URL || "/";
+
 const HERO_IMAGES = [heroImg, heroImg2, heroImg3];
 
 export default function Links() {
@@ -30,7 +32,7 @@ export default function Links() {
     },
     {
       label: "Download Free Program (PDF)",
-      href: "/assets/free-program.pdf",
+      href: `${BASE_URL}assets/free-program.pdf`,
       icon: FaDownload,
       big: true,
       target: "_blank",
@@ -38,11 +40,12 @@ export default function Links() {
     },
     {
       label: "Visit Full Website",
-      href: "/#top",
+      href: `${BASE_URL}#top`,
       icon: FaGlobe,
       big: true,
     },
   ];
+
 
   const socials = [
     {
@@ -262,20 +265,22 @@ function LinksStyleTag() {
         opacity: 0;
         transform: scale(1.05);
         transition: opacity 1.2s ease;
-        filter: grayscale(.2) contrast(1.05) brightness(.45);
-      }
-
-      .links-bg-img.show {
-        opacity: 1;
+        /* much lighter */
+        filter: grayscale(.1) contrast(1.05) brightness(.75);
       }
 
       .links-bg-overlay {
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(80% 60% at 50% 0%, rgba(0,0,0,.45), transparent 55%),
-          linear-gradient(180deg, rgba(0,0,0,.85) 10%, #050608 85%);
-        mix-blend-mode: multiply;
+          radial-gradient(70% 60% at 50% 0%, rgba(0,0,0,.25), transparent 55%),
+          linear-gradient(180deg, rgba(0,0,0,.55) 10%, rgba(0,0,0,.85) 85%);
+        /* remove this so it doesn’t double-darken everything */
+        /* mix-blend-mode: multiply; */
+      }
+
+      .links-bg-img.show {
+        opacity: 1;
       }
 
       .links-wrap {
