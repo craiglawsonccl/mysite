@@ -86,15 +86,7 @@ section h1, section h2, section p.lead{ text-align:center; }
 form{ margin: 0 auto; width: 100%; max-width: 720px; }
 .logos{ justify-items:center; }
 /* LINKS PAGE LAYOUT */
-.links-wrap{
-  width: 100vw;                 /* span full viewport width */
-  min-height: 100svh;           /* fill height */
-  display: grid;
-  place-items: center;          /* dead-center children */
-  padding: 32px 16px;
-  background: #0f0f10;          /* same site bg */
-  color: #fff;
-}
+
 
 .links-card{
   width: min(560px, 92vw);      /* fixed max, responsive */

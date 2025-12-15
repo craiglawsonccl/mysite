@@ -16,6 +16,24 @@ import sligosFittestLogo from "../assets/imgs/InfiniteBanner/SligosFittest.png";
 import warriorsRunLogo from "../assets/imgs/InfiniteBanner/WarriorsRun.png";
 import ROMLogo from "../assets/imgs/InfiniteBanner/ROM.png";
 
+import story1 from "../assets/imgs/client-stories/story-1.jpg";
+
+
+// Client transformation images
+// import client1Before from "../assets/imgs/transformations/client1-before.jpg";
+// import client1After  from "../assets/imgs/transformations/client1-after.jpg";
+
+// import client2Before from "../assets/imgs/transformations/client2-before.jpg";
+// import client2After  from "../assets/imgs/transformations/client2-after.jpg";
+
+// import client3Before from "../assets/imgs/transformations/client3-before.jpg";
+// import client3After  from "../assets/imgs/transformations/client3-after.jpg";
+
+// Client transformation images (temp – update paths later)
+import transform1Before from "../assets/imgs/transformations/transform1.png";
+import transform1After from "../assets/imgs/transformations/transform1.1.png";
+
+
 /**
  * Vlogger-style landing page in React
  */
@@ -57,14 +75,110 @@ const EVENT_LOGOS = [
 ];
 
 const CLIENT_STORIES = [
-  { s: "800/520", t: "Snow Ridge: Sunrise Summit", m: "8 min • Action" },
-  { s: "800/900", t: "Forest River Crossing", m: "11 min • Travel" },
-  { s: "800/600", t: "Glacier Camp Overnight", m: "17 min • Survival" },
-  { s: "800/700", t: "Canyon Rope Descent", m: "12 min • Extreme" },
-  { s: "800/650", t: "Waterfall Free-climb", m: "10 min • Climb" },
-  { s: "800/820", t: "Desert Ridge Bivvy", m: "9 min • Camp" },
+  { 
+    s: "800/520",
+    t: "Huge Confidence & Performance Boost",
+    m: "Rebecca • PT Programme",
+    imgSrc: null, // e.g. "/images/clients/rebecca.jpg"
+    body: `Hey Daniel, 
+I just wanted to say thank you for everything you’ve done for me. Your guidance, motivation, and expertise have made such a huge impact—not just on my fitness, but on my confidence and performance as well. I’ve never felt better, both in how I look and how I play on the field, and I owe so much of that to you.
+
+Your workouts pushed me to levels I didn’t think I could reach, and your support kept me going even when it got tough. I truly appreciate all the effort you put into helping me improve, and I can’t thank you enough for helping me get to this point.
+
+Looking forward to continuing my journey using everything you have taught me!!
+
+Thanks again,
+Rebecca`
+  },
+  { 
+    s: "800/900",
+    t: "Strength, Confidence & Effective Training",
+    m: "Elaine • 1:1 Training",
+    imgSrc: null, // e.g. "/images/clients/elaine.jpg"
+    body: `Training with Daniel has completely changed my gym experience. I’ve gained strength, built confidence, and learned how to train effectively. He made the gym feel approachable and helped me push past limits I didn’t think I could.
+
+I highly recommend Daniel to anyone looking to build strength, confidence, and a healthy relationship with fitness.`
+  },
+  { 
+    s: "800/600",
+    t: "Confidence Using Gym Equipment",
+    m: "Muireann • Beginner PT",
+    imgSrc: null, // e.g. "/images/clients/muireann.jpg"
+    body: `Hi Daniel,
+I have benefited greatly from your input over the past 4 sessions, and feel much more confident in using the gym equipment. Thanks for your help in getting me going.
+
+Muireann`
+  },
+  { 
+    s: "800/700",
+    t: "Fantastic Trainer for Gym Beginners",
+    m: "Stephen O'Neill • Nov 2025",
+    imgSrc: null, // e.g. "/images/clients/stephen.jpg"
+    body: `Daniel is a fantastic trainer, and an absolutely great help for me beginning my exercise in the gym. Dependable and very knowledgeable. Highly recommended!
+
+Stephen O’Neill`
+  },
+  { 
+    s: "800/650",
+    t: "Three-Month Transformation & Sport Performance",
+    m: "Eddie • 3-Month PT Programme",
+    imgSrc: null, // e.g. "/images/clients/eddie.jpg"
+    body: `I just finished up 3 month sessions with Daniel, and I cannot recommend him enough. I played sport all my life, but as I got older, I started slowing down, so I decided to join ROM to keep myself fit. I started the sessions with Daniel. 
+
+Straight away, I noticed the difference. We met twice a week, and every session was different. Daniel would explain all the exercises thoroughly and help me with any mistakes I was making. He was very important at the start, showing me exercises I should be doing and helping build my confidence as, no matter who you are, anyone going to the gym for the first time would find it daunting.
+
+I would highly recommend Daniel to anybody. He knows his stuff about every piece of equipment and every exercise, and he also supplies a meal plan to follow. He is very knowledgeable about every aspect of ROM.
+
+Eddie`
+  },
+  { 
+    s: "800/820",
+    t: "Strength, Fitness & Motivation From Day One",
+    m: "Rosemary • Beginner Strength Programme",
+    imgSrc: null, // e.g. "/images/clients/rosemary.jpg"
+    body: `Daniel is an excellent personal trainer and a great motivator and support! I am a beginner in the gym and his sessions are focused on your needs, and he encourages you all the way. 
+
+I definitely feel I've improved strength and fitness with his programme and would definitely recommend Daniel for anyone looking for a personal trainer.
+
+Rosemary`
+  },
+];
+const TRANSFORMATIONS = [
+  {
+    before: transform1Before,
+    after: transform1After,
+    title: "12 Weeks Progress",
+    subtitle: "Lean muscle, better definition and confidence.",
+  },
+  {
+    before: transform1Before,
+    after: transform1After,
+    title: "Hybrid Training Results",
+    subtitle: "Stronger, fitter and noticeably leaner.",
+  },
+  {
+    before: transform1Before,
+    after: transform1After,
+    title: "Strength & Aesthetics",
+    subtitle: "Performance and physique improved together.",
+  },
 ];
 
+const FALLBACK_STORY_IMAGES = [
+  story1,
+  story1,
+  story1,
+  story1,
+  story1,
+  story1,
+];
+
+function getStoryImage(story, index) {
+  return (
+    story.imgSrc ||
+    FALLBACK_STORY_IMAGES[index % FALLBACK_STORY_IMAGES.length]
+  );
+}
 
 export default function VloggerTemplate() {
   const headerRef = useRef(null);
@@ -306,11 +420,12 @@ export default function VloggerTemplate() {
           <div className="hero-overlay" aria-hidden="true" />
         </div>
         <div className="container">
-          <span className="eyebrow">Personal Training</span>
+          <span className="eyebrow">Hybrid Coaching</span>
           <h1>Daniel McMullen</h1>
           <p className="lead">
-            Personal Trainer • Online Coaching • Workout Plans • Lifestyle • Beard • Muscle.
-            Want a personalized trainer that gets results? Let's connect! See the Client Stories below to see their transformations
+            Hybrid coaching that blends strength, endurance and aesthetics. 
+            Become a hybrid athlete – strong, fit and capable – without losing the muscle 
+            you’ve worked hard to build. Look like an athlete and perform like one.
           </p>
           <div className="hero-actions">
             <a className="btn" href="#videos">
@@ -329,25 +444,26 @@ export default function VloggerTemplate() {
           <h2 className="reveal">Coaching</h2>
           <div className="grid four">
             <FeatureCard
+              letter="H"
+              title="Hybrid Coaching"
+              text="Strength + endurance + aesthetics in one programme."
+            />
+            <FeatureCard
               letter="S"
-              title="Strength Training"
-              text="Can help you build muscle and get stronger? Yes!"
+              title="Strength & Muscle"
+              text="Build serious strength and muscle without living in the gym."
             />
             <FeatureCard
-              letter="R"
-              title="Rehabilitation"
-              text="Recover from injury with guided programs."
+              letter="E"
+              title="Endurance & Engine"
+              text="Run, row or bike further and faster while keeping your size."
             />
             <FeatureCard
-              letter="C"
-              title="Cardiovascular"
-              text="Can help you with endurance and fat loss."
+              letter="N"
+              title="Nutrition & Lifestyle"
+              text="Simple nutrition and habits to support hybrid performance."
             />
-            <FeatureCard
-              letter="D"
-              title="Dream Physique and goals"
-              text="Let's work together to achieve your dream body."
-            />
+
           </div>
         </div>
       </section>
@@ -397,28 +513,28 @@ export default function VloggerTemplate() {
           {/* RIGHT – deeper description */}
           <div className="about-copy">
             <span className="eyebrow">About Me</span>
-            <h2 className="reveal">From Client to Coach</h2>
+            <h2 className="reveal">From Client to Hybrid Coach</h2>
 
             <p className="lead reveal">
-              Daniel McMullen is a Sligo-based personal trainer who specialises
-              in helping busy people build real strength, drop body fat and feel
-              confident in their own skin – without living in the gym or
-              starving themselves.
+              I’m a Sligo-based personal trainer who specialises in hybrid coaching – helping
+              busy people build strength, an athletic physique and real endurance without
+              living in the gym or starving themselves.
             </p>
 
             <p className="reveal">
-              Having gone through his own transformation, Daniel understands
-              exactly what it feels like to start from scratch. That’s why his
-              coaching is built around education, accountability and programmes
-              that fit around work, family and real life – not the other way
-              around.
+              This isn’t theory for me. I’ve completed my first HYROX, run a marathon, and
+              I’m currently training for an Ironman 70.3 – all while holding onto the
+              muscle mass I’ve built over the years and being the strongest I’ve ever been.
+              My goal is to show you how to build the engine of an endurance athlete,
+              without having to look like a typical endurance athlete.
             </p>
 
             <ul className="about-list reveal">
-              <li>1:1 in-person coaching and fully online coaching</li>
-              <li>Custom training plans tailored to your goals & injuries</li>
-              <li>Simple nutrition guidance you can actually stick to</li>
-              <li>Support via messages & check-ins – you’re never on your own</li>
+              <li>Hybrid coaching that blends strength, conditioning and endurance.</li>
+              <li>1:1 in-person coaching and fully online coaching options.</li>
+              <li>Training plans tailored to your goals, schedule and any injuries.</li>
+              <li>Simple, sustainable nutrition guidance – no extreme diets.</li>
+              <li>Regular check-ins and support so you’re never doing this alone.</li>
             </ul>
 
             <div className="hero-actions reveal">
@@ -430,33 +546,61 @@ export default function VloggerTemplate() {
               </a>
             </div>
           </div>
+
         </div>
       </section>
+      
+      {/* CLIENT TRANSFORMATIONS */}
+      <section id="transformations">
+        <div className="container">
+          <h2 className="reveal">Client Transformations</h2>
+          <p className="lead reveal">
+            Real results from real people. These are examples of clients who
+            committed to hybrid coaching – combining strength training, conditioning
+            and simple nutrition habits to change how they look, feel and perform.
+          </p>
 
+          <div className="transformation-grid">
+            {TRANSFORMATIONS.map((t, idx) => (
+              <TransformationCard key={idx} {...t} />
+            ))}
+          </div>
+        </div>
+      </section>
+      
 
       {/* FEATURED / MASONRY */}
       <section id="videos">
         <div className="container">
           <h2 className="reveal">Client Stories</h2>
           <div className="masonry">
-            {visibleStories.map((v, i) => (
-              <button
-                key={i}
-                type="button"
-                className="tile reveal"
-                onClick={() => openStory(i)}
-              >
-                <img
-                  src={`https://picsum.photos/${v.s}?random=${i + 3}`}
-                  alt="Client story"
-                />
-                <div className="tile-body">
-                  <strong>{v.t}</strong>
-                  <br />
-                  <span style={{ color: "#cfd6dd" }}>{v.m}</span>
-                </div>
-              </button>
-            ))}
+            {visibleStories.map((story, i) => {
+              // Find this story’s index in the full CLIENT_STORIES array
+              const indexInAll = CLIENT_STORIES.findIndex(
+                (s) => s.t === story.t && s.m === story.m
+              );
+
+              const imgSrc = getStoryImage(
+                story,
+                indexInAll === -1 ? i : indexInAll
+              );
+
+              return (
+                <button
+                  key={story.t}
+                  type="button"
+                  className="tile reveal"
+                  onClick={() => openStory(indexInAll === -1 ? i : indexInAll)}
+                >
+                  <img src={imgSrc} alt="Client story" />
+                  <div className="tile-body">
+                    <strong>{story.t}</strong>
+                    <br />
+                    <span style={{ color: "#cfd6dd" }}>{story.m}</span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
 
           <div className="client-stories-actions">
@@ -470,6 +614,7 @@ export default function VloggerTemplate() {
           </div>
         </div>
       </section>
+
       
       {/* CLIENT STORY MODAL */}
       {activeStoryIndex !== null && (
@@ -507,9 +652,10 @@ export default function VloggerTemplate() {
 
             {(() => {
               const story = CLIENT_STORIES[activeStoryIndex];
-              const imgSrc = `https://picsum.photos/${story.s}?random=${
-                activeStoryIndex + 3
-              }`;
+
+              const imgSrc =
+                story.imgSrc ||
+                FALLBACK_STORY_IMAGES[activeStoryIndex % FALLBACK_STORY_IMAGES.length];
 
               return (
                 <>
@@ -520,15 +666,10 @@ export default function VloggerTemplate() {
                     <span className="eyebrow">Client Story</span>
                     <h3>{story.t}</h3>
                     <p className="story-meta">{story.m}</p>
-                    <p>
-                      Lorem ipsum placeholder text for this client story. Here you can
-                      describe the starting point, the coaching journey, and the
-                      results they achieved with Daniel’s support.Lorem ipsum placeholder text for this client story. Here you can
-                      describe the starting point, the coaching journey, and the
-                      results they achieved with Daniel’s support.Lorem ipsum placeholder text for this client story. Here you can
-                      describe the starting point, the coaching journey, and the
-                      results they achieved with Daniel’s support.
-                    </p>
+
+                    {story.body.split("\n\n").map((para, idx) => (
+                      <p key={idx}>{para}</p>
+                    ))}
                   </div>
                 </>
               );
@@ -546,11 +687,6 @@ export default function VloggerTemplate() {
             <div className="social-feed-card reveal">
               <h3>Instagram</h3>
               <TagembedFeed platform="instagram" />
-            </div>
-
-            <div className="social-feed-card reveal">
-              <h3>TikTok</h3>
-              <TagembedFeed platform="tiktok" />
             </div>
           </div>
         </div>
@@ -653,6 +789,27 @@ function FeatureCard({ letter, title, text }) {
     </div>
   );
 }
+function TransformationCard({ before, after, title, subtitle }) {
+  return (
+    <div className="transformation-card reveal">
+      <div className="transformation-images">
+        <div className="transformation-image-wrapper">
+          <span className="badge">Before</span>
+          <img src={before} alt={`${title} – before`} />
+        </div>
+        <div className="transformation-image-wrapper">
+          <span className="badge badge-alt">After</span>
+          <img src={after} alt={`${title} – after`} />
+        </div>
+      </div>
+      <div className="transformation-copy">
+        <h3>{title}</h3>
+        <p>{subtitle}</p>
+      </div>
+    </div>
+  );
+}
+
 
 function StyleTag() {
   return (
@@ -1172,6 +1329,92 @@ function StyleTag() {
         .story-modal-arrow.right{
           right:10px;
         }
+      }
+            /* Transformations */
+      #transformations .container {
+        justify-items: center;
+      }
+
+      .transformation-grid {
+        width: 100%;
+        display: grid;
+        gap: 20px;
+        margin-top: 26px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      @media (max-width: 1024px) {
+        .transformation-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .transformation-grid {
+          grid-template-columns: 1fr;
+          overflow-x: auto;           /* optional horizontal scroll on very small screens */
+          padding-bottom: 4px;
+        }
+      }
+
+      .transformation-card {
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: 20px;
+        padding: 14px 14px 16px;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .transformation-images {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .transformation-image-wrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        background: #000;
+      }
+
+      .transformation-image-wrapper img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        background: rgba(0,0,0,.75);
+        color: #f5f7fa;
+      }
+
+      .badge-alt {
+        background: #ffffff;
+        color: #111317;
+      }
+
+      .transformation-copy h3 {
+        margin: 6px 0 2px;
+        font-size: 1rem;
+      }
+
+      .transformation-copy p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--muted);
       }
 
 
