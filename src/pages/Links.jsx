@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { FaDumbbell, FaDownload, FaGlobe, FaInstagram, FaTiktok } from "react-icons/fa";
+import {
+  FaDumbbell,
+  FaDownload,
+  FaGlobe,
+  FaInstagram,
+  FaTiktok,
+} from "react-icons/fa";
+import { useLeadModal } from "../context/LeadModalContext";
 
 import heroImg from "../assets/imgs/hero.jpeg";
 import heroImg2 from "../assets/imgs/hero2.jpeg";
@@ -16,6 +23,8 @@ export default function Links() {
 
   const [bgIndex, setBgIndex] = useState(0);
 
+  const { open } = useLeadModal();
+
   useEffect(() => {
     const id = setInterval(() => {
       setBgIndex((prev) => (prev + 1) % HERO_IMAGES.length);
@@ -25,10 +34,14 @@ export default function Links() {
 
   const links = [
     {
-      label: "Apply for Coaching",
-      href: "https://forms.gle/your-form",
+      label: "Interested? (Quick Questionnaire)",
+      href: "#",
       icon: FaDumbbell,
       big: true,
+      onClick: (e) => {
+        e.preventDefault();
+        open();
+      },
     },
     {
       label: "Download Free Program (PDF)",
@@ -45,7 +58,6 @@ export default function Links() {
       big: true,
     },
   ];
-
 
   const socials = [
     {
@@ -82,49 +94,27 @@ export default function Links() {
       <div className="links-wrap">
         <div className="links-card">
           {/* Header / Profile */}
-          <div style={{ textAlign: "center", marginBottom: 18 }}>
+          <div className="links-header">
             <img
               src={DanPfp}
               alt="Daniel headshot"
-              style={{
-                width: 96,
-                height: 96,
-                borderRadius: 999,
-                objectFit: "cover",
-              }}
+              className="links-avatar"
             />
-            <h1 style={{ margin: "12px 0 4px", fontSize: 28 }}>
-              Daniel McMullen
-            </h1>
-            <p style={{ margin: 0, opacity: 0.8 }}>Personal Trainer • Sligo</p>
+
+            <h1 className="links-title">Daniel McMullen</h1>
+            <p className="links-subtitle">Personal Trainer • Sligo</p>
 
             {/* ROM endorsement link */}
             <a
               href="https://www.romsligo.net/personal-training"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 10,
-                marginTop: 12,
-                padding: "8px 12px",
-                borderRadius: 999,
-                textDecoration: "none",
-                color: "#111",
-                background: "#fff",
-                fontWeight: 800,
-                border: `2px solid ${ACCENT}`,
-              }}
+              className="links-pill"
+              style={{ border: `2px solid ${ACCENT}` }}
             >
               <span
-                style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: 999,
-                  background: ACCENT,
-                  display: "inline-block",
-                }}
+                className="links-dot"
+                style={{ background: ACCENT }}
               />
               Endorsed PT at ROM
             </a>
@@ -138,29 +128,64 @@ export default function Links() {
               const href = isExternal
                 ? `${l.href}?utm_source=instagram&utm_medium=bio&utm_campaign=links`
                 : l.href;
-              const target = l.target ?? (isExternal ? "_blank" : undefined);
-              const rel = l.rel ?? (isExternal ? "noopener noreferrer" : undefined);
 
+              const target = l.target ?? (isExternal ? "_blank" : undefined);
+              const rel =
+                l.rel ?? (isExternal ? "noopener noreferrer" : undefined);
+
+              const commonStyle = {
+                display: "block",
+                textDecoration: "none",
+                color: "#111",
+                background: "#fff",
+                padding: l.big ? "16px 18px" : "12px 16px",
+                borderRadius: 16,
+                border: `2px solid ${ACCENT}`,
+                boxShadow:
+                  "0 8px 24px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.6)",
+                textAlign: "center",
+                fontWeight: 800,
+                fontSize: l.big ? 18 : 16,
+                cursor: "pointer",
+              };
+
+              // ✅ If it has an onClick, render a button (no href/hash navigation)
+              if (l.onClick) {
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={l.onClick}
+                    className="links-cta"
+                    style={{ ...commonStyle, width: "100%" }}
+                  >
+                    {Icon && (
+                      <span
+                        style={{
+                          marginRight: 8,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          verticalAlign: "middle",
+                        }}
+                      >
+                        <Icon />
+                      </span>
+                    )}
+                    {l.label}
+                  </button>
+                );
+              }
+
+              // Normal links stay <a>
               return (
                 <a
                   key={i}
                   href={href}
                   target={target}
                   rel={rel}
-                  style={{
-                    display: "block",
-                    textDecoration: "none",
-                    color: "#111",
-                    background: "#fff",
-                    padding: l.big ? "16px 18px" : "12px 16px",
-                    borderRadius: 16,
-                    border: `2px solid ${ACCENT}`,
-                    boxShadow:
-                      "0 8px 24px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.6)",
-                    textAlign: "center",
-                    fontWeight: 800,
-                    fontSize: l.big ? 18 : 16,
-                  }}
+                  className="links-cta"
+                  style={commonStyle}
                 >
                   {Icon && (
                     <span
@@ -198,6 +223,7 @@ export default function Links() {
                   href={`${s.href}?utm_source=instagram&utm_medium=bio&utm_campaign=links`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="links-social"
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -265,7 +291,6 @@ function LinksStyleTag() {
         opacity: 0;
         transform: scale(1.05);
         transition: opacity 1.2s ease;
-        /* much lighter */
         filter: grayscale(.1) contrast(1.05) brightness(.75);
       }
 
@@ -275,13 +300,9 @@ function LinksStyleTag() {
         background:
           radial-gradient(70% 60% at 50% 0%, rgba(0,0,0,.25), transparent 55%),
           linear-gradient(180deg, rgba(0,0,0,.55) 10%, rgba(0,0,0,.85) 85%);
-        /* remove this so it doesn’t double-darken everything */
-        /* mix-blend-mode: multiply; */
       }
 
-      .links-bg-img.show {
-        opacity: 1;
-      }
+      .links-bg-img.show { opacity: 1; }
 
       .links-wrap {
         width: 100%;
@@ -300,9 +321,71 @@ function LinksStyleTag() {
         padding: 20px 20px 16px;
       }
 
+      .links-header{
+        text-align:center;
+        margin-bottom:18px;
+      }
+
+      .links-avatar{
+        width:96px;
+        height:96px;
+        border-radius:999px;
+        object-fit:cover;
+      }
+
+      .links-title{
+        margin:12px 0 4px;
+        font-size:28px;
+      }
+
+      .links-subtitle{
+        margin:0;
+        opacity:.8;
+      }
+
+      .links-pill{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        margin-top:12px;
+        padding:8px 12px;
+        border-radius:999px;
+        text-decoration:none;
+        color:#111;
+        background:#fff;
+        font-weight:800;
+      }
+
+      .links-dot{
+        width:10px;
+        height:10px;
+        border-radius:999px;
+        display:inline-block;
+      }
+
+      /* Mobile tuning */
       @media (max-width: 480px) {
         .links-card {
-          padding: 18px 16px 14px;
+          padding: 16px 14px 12px;
+        }
+
+        .links-avatar{
+          width:84px;
+          height:84px;
+        }
+
+        .links-title{
+          font-size:24px;
+        }
+
+        .links-cta{
+          font-size:15px !important;
+          padding:12px 14px !important;
+        }
+
+        .links-social{
+          font-size:14px !important;
+          padding:9px 10px !important;
         }
       }
     `}</style>

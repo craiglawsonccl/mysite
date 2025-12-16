@@ -1,32 +1,20 @@
-import { useEffect } from "react";
+// src/components/TagembedFeed.jsx
 import { SOCIAL_FEEDS } from "../config/socialFeeds";
 
 export default function TagembedFeed({ platform }) {
   const feed = SOCIAL_FEEDS[platform];
 
-  if (!feed) {
-    console.warn(`No Tagembed config found for platform: ${platform}`);
-    return null;
-  }
-
-  useEffect(() => {
-    // Only add Tagembed script once
-    if (!document.getElementById("tagembed-script")) {
-      const script = document.createElement("script");
-      script.id = "tagembed-script";
-      script.src = "https://widget.tagembed.com/embed.min.js";
-      script.type = "text/javascript";
-      script.async = true;
-      document.body.appendChild(script);
-    }
-  }, []);
+  if (!feed) return null;
 
   return (
     <div className="tagembed-wrapper">
-      <div
-        className="tagembed-widget"
-        data-widget-id={feed.widgetId}
-        data-website="1"
+      <iframe
+        title={`${platform}-feed`}
+        src={`https://widget.tagembed.com/${feed.widgetId}?website=1`}
+        style={{ width: "100%", height: "650px", border: "none", overflow: "hidden" }}
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
       />
     </div>
   );

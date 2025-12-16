@@ -24,6 +24,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  z-index: 100;
 }
 
 /* Brand */
@@ -197,4 +198,7 @@
   .nav-drawer-link-alt {
     opacity: 0.9;
   }
+}
+.tb_sb__b_cont {
+  z-index: 1;
 }

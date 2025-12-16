@@ -6,6 +6,7 @@ const NAV_ITEMS = [
   { id: "features", label: "Coaching", href: "#features" },
   { id: "about", label: "About Me", href: "#about" },
   { id: "videos", label: "Client Stories", href: "#videos" },
+  { id: "socials", label: "Socials", href: "#socials" },
   { id: "awards", label: "Events", href: "#awards" },
   { id: "contact", label: "Contact", href: "#contact", cta: true },
 ];
@@ -123,9 +124,13 @@ export default function GlassNav() {
             </button>
           ))}
 
-          <a href="/links" className="nav-drawer-link nav-drawer-link-alt">
+          <Link
+            to="/links"
+            className="nav-drawer-link nav-drawer-link-alt"
+            onClick={() => setOpen(false)} // optional: close menu
+          >
             Links
-          </a>
+          </Link>
         </nav>
       </div>
     </header>

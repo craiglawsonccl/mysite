@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Home from "./pages/Home";
 import Links from "./pages/Links";
 import "./styles.css";
+import LeadModal from "./components/LeadModal";
 
 function ScrollToHash() {
   const { pathname, hash } = useLocation();
@@ -17,14 +18,24 @@ function ScrollToHash() {
   return null;
 }
 
+const BASENAME =
+  (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+
 export default function App() {
   return (
-    <BrowserRouter basename="/mysite">
+    <BrowserRouter basename={BASENAME}>
       <ScrollToHash />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/links" element={<Links />} />
       </Routes>
+
+      {/* Mount globally so Links page can open it */}
+      <LeadModal />
+
+      {/* Optional: if you want the sticky button on Links too */}
+      {/* <StickyInterestedButton /> */}
     </BrowserRouter>
   );
 }

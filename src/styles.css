@@ -101,13 +101,6 @@ form{ margin: 0 auto; width: 100%; max-width: 720px; }
   display: flex;
   justify-content: center;
 }
-/* CLIENT STORY MODAL
-   ================== */
-.story-meta {
-  color: #cfd6dd;
-  font-size: 0.95rem;
-}
-
 
 /* ─── Client Story modal overlay ───────────────────────────── */
 
@@ -186,7 +179,6 @@ form{ margin: 0 auto; width: 100%; max-width: 720px; }
 
 /* ─── Buttons: X + arrows (always visible) ─────────────────── */
 
-.client-story-close,
 .client-story-navbtn {
   position: absolute;
   z-index: 5;            /* sits above image and content */
@@ -200,22 +192,6 @@ form{ margin: 0 auto; width: 100%; max-width: 720px; }
   justify-content: center;
 }
 
-/* close (X) */
-.client-story-close {
-  top: 18px;
-  right: 18px;
-  width: 40px;
-  height: 40px;
-}
-
-/* arrows share pill sizing */
-.client-story-navbtn {
-  width: 56px;
-  height: 36px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
 /* left / right placement */
 .client-story-navbtn.left {
   left: 18px;
@@ -225,228 +201,174 @@ form{ margin: 0 auto; width: 100%; max-width: 720px; }
   right: 18px;
 }
 
-/* inner span holds the icon and fixes centering */
-.client-story-close span,
-.client-story-navbtn span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-size: 18px;
-  line-height: 0;       /* kill baseline weirdness */
-}
-
-/* subtle hover */
-.client-story-close:hover,
-.client-story-navbtn:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* mobile: keep everything visible, just sit on top */
-@media (max-width: 768px) {
-  .client-story-close {
-    top: 16px;
-    right: 16px;
-  }
-
-  .client-story-navbtn {
-    top: auto;
-    bottom: 18px;
-    transform: none;
-  }
-
-  .client-story-navbtn.left {
-    left: 18px;
-  }
-
-  .client-story-navbtn.right {
-    right: 18px;
-  }
-}
-
-/* ─── Client Story modal overlay ───────────────────────────── */
-
-.client-story-overlay {
+/* Lead modal */
+.lead-modal-overlay{
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.68);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
+  z-index: 10000;
+  background: rgba(0,0,0,.75);
+  display: grid;
+  place-items: center;
+  padding: 18px;
 }
-
-/* main card */
-.client-story-modal {
-  position: relative;
-  width: min(1100px, 92vw);
-  max-height: 90vh;
-  background: #05070b;
-  border-radius: 32px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
-}
-
-/* layout */
-.client-story-modal-layout {
-  display: flex;
-  flex: 1;
-}
-
-/* left: image */
-.client-story-image-wrap {
-  position: relative;
-  flex: 1 1 55%;
-  min-height: 260px;
+.lead-modal{
+  width: min(720px, 96vw);
+  border-radius: 18px;
+  background: #0b0f14;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 30px 90px rgba(0,0,0,.65);
   overflow: hidden;
 }
-
-.client-story-image-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+.lead-modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
-
-/* right: text */
-.client-story-copy {
-  flex: 1 1 45%;
-  padding: 32px 32px 28px;
-  position: relative;
-}
-
-/* ─── Buttons: X + arrows (always visible) ─────────────────── */
-
-.client-story-close,
-.client-story-navbtn {
-  position: absolute;
-  z-index: 5;
-  border-radius: 999px;
-  background: transparent;          /* start almost clear */
-  padding: 0;
+.lead-modal-head h3{ margin:0; font-size: 16px; }
+.lead-modal-x{
+  background: transparent;
+  border: 0;
+  color: #fff;
+  font-size: 26px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;                 /* for the radial reveal */
+}
+.lead-form{ padding: 16px; display: grid; gap: 12px; }
+.lead-form label{ display:grid; gap:6px; color: rgba(255,255,255,.85); font-size: 14px; }
+.lead-form input, .lead-form select{
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+  color: #fff;
+}
+.grid2{ display:grid; gap:12px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 640px){ .grid2{ grid-template-columns: 1fr; } }
+.lead-actions{ display:flex; justify-content:flex-end; gap:10px; margin-top: 6px; }
+.lead-actions button{
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  color:#fff;
+  cursor:pointer;
+}
+.lead-actions button.ghost{ background: transparent; }
+.status{
+  margin: 10px 0 0;
+  font-size: 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
 }
 
-/* close (X) */
-.client-story-close {
-  top: 18px;
-  right: 18px;
-  width: 40px;
-  height: 40px;
+.status.success{
+  background: rgba(140,255,176,.12);
+  border-color: rgba(140,255,176,.35);
+  color: #d9ffe6;
 }
 
-/* arrows share pill sizing */
-.client-story-navbtn {
-  width: 56px;
-  height: 36px;
-  top: 50%;
-  transform: translateY(-50%);
+.status.error{
+  background: rgba(255,155,155,.10);
+  border-color: rgba(255,155,155,.35);
+  color: #ffe1e1;
 }
 
-/* left / right placement */
-.client-story-navbtn.left  { left: 18px; }
-.client-story-navbtn.right { right: 18px; }
+.hp{ position:absolute; left:-9999px; width:1px; height:1px; opacity:0; }
 
-/* inner span holds the icon and fixes centering */
-.client-story-close span,
-.client-story-navbtn span {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-size: 18px;
-  line-height: 0;
+/* keep modal inside viewport */
+.lead-modal{
+  width: min(920px, 96vw);
+  max-height: calc(100svh - 32px);
+  overflow: hidden;
 }
 
-/* radial “ink” background */
-.client-story-close::before,
-.client-story-navbtn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: rgba(0, 0, 0, 0.55);
-  transform: scale(0);
-  opacity: 0.2;                    /* very light idle state */
-  transition:
-    transform 180ms ease-out,
-    opacity 180ms ease-out;
+/* make the form area scroll if needed */
+.lead-form{
+  max-height: calc(100svh - 120px); /* header + padding */
+  overflow: auto;
 }
 
-/* subtle ring so they’re visible even at rest */
-.client-story-close,
-.client-story-navbtn {
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
-}
-
-/* hover / focus: grow the dark area from centre */
-.client-story-close:hover::before,
-.client-story-navbtn:hover::before,
-.client-story-close:focus-visible::before,
-.client-story-navbtn:focus-visible::before {
-  transform: scale(1);
-  opacity: 0.9;
-}
-
-
-/* ─── mobile ─────────────────────────────────────────────── */
-
-@media (max-width: 768px) {
-  .client-story-modal {
-    width: min(520px, 94vw);
-    max-height: 96vh;
-    border-radius: 26px;
+/* mobile sizing */
+@media (max-width: 640px){
+  .lead-modal{
+    width: calc(100vw - 24px);
+    border-radius: 18px;
   }
 
-  .client-story-modal-layout {
+  .lead-modal-head{
+    padding: 14px 14px;
+  }
+
+  .lead-form{
+    padding: 14px;
+  }
+
+  .lead-actions{
     flex-direction: column;
   }
 
-  .client-story-image-wrap {
-    height: 240px;
-  }
-
-  .client-story-copy {
-    padding: 24px 20px 80px;
-  }
-
-  .client-story-close {
-    top: 16px;
-    right: 16px;
-  }
-
-  .client-story-navbtn {
-    top: 50%;
-    bottom: auto;
-    transform: translateY(-50%);
+  .lead-actions button{
+    width: 100%;
   }
 }
-/* allow scrolling inside the modal, not the page */
-.client-story-overlay {
-  overflow-y: auto;
+/* ===== Defensive scoping for modal only (prevents Links/global conflicts) ===== */
+.lead-modal, .lead-modal * {
+  box-sizing: border-box;
 }
 
-.client-story-modal {
-  max-height: 90vh;
-  display: flex;
-  flex-direction: row;
+.lead-modal {
+  min-width: 0;
+  width: min(920px, 96vw);
+  max-width: 96vw;
+  max-height: calc(100svh - 32px);
+  overflow: hidden;
 }
 
-.client-story-modal-layout {
-  flex: 1;
-  max-height: 100%;
-  overflow-y: auto;   /* scroll inside card if text is long */
+/* force modal form layout to behave */
+.lead-form {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  overflow: auto;
+  max-height: calc(100svh - 120px);
 }
 
+.lead-form label {
+  display: grid !important;
+  gap: 6px;
+  min-width: 0;          /* critical */
+}
 
+.grid2 {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px;
+  min-width: 0;
+}
 
+.lead-form input,
+.lead-form select,
+.lead-form textarea {
+  width: 100% !important;
+  min-width: 0 !important;  /* critical */
+  max-width: 100% !important;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .grid2 {
+    grid-template-columns: 1fr !important;
+  }
+  .lead-modal {
+    width: calc(100vw - 24px);
+    border-radius: 18px;
+  }
+  .lead-actions {
+    flex-direction: column;
+  }
+  .lead-actions button {
+    width: 100%;
+  }
+}
