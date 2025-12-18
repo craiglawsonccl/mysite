@@ -721,7 +721,9 @@ export default function VloggerTemplate() {
 
       {/* ABOUT SPLIT */}
       <section id="about">
+        <h2 className="reveal">About Me</h2>
         <div className="container split">
+          
           {/* LEFT – before / after slider */}
           <div className="media reveal">
             <div
@@ -763,8 +765,8 @@ export default function VloggerTemplate() {
 
           {/* RIGHT – deeper description */}
           <div className="about-copy">
-            <span className="eyebrow">About Me</span>
-            <h2 className="reveal">From Client to Hybrid Coach</h2>
+            <span className="eyebrow">From Client to Hybrid Coach</span>
+            
 
             <p className="lead reveal">
               I’m a Sligo-based personal trainer who specialises in hybrid coaching – helping
@@ -1758,68 +1760,6 @@ body.modal-open {
   align-items: center;
   justify-content: center;
   transform: translateZ(0);
-}
-.sticky-interested:hover{ transform: translateY(-1px); }
-
-/* Optional: keyboard focus */
-.sticky-interested:focus-visible{
-  outline: 2px solid rgba(0,135,225,.9);
-  outline-offset: 3px;
-}
-/* ---- Shimmer effect (add class "interested-shimmer" to the button) ---- */
-.interested-shimmer{
-  position: relative;
-  overflow: hidden;   /* clips the sheen */
-  isolation: isolate; /* keeps blend clean */
-}
-
-.interested-shimmer::before{
-  content:"";
-  position:absolute;
-  top:-60%;
-  left:-60%;
-  width: 60%;
-  height: 220%;
-  transform: rotate(18deg) translateX(-140%);
-  pointer-events:none;
-  z-index: 1;
-
-  background: linear-gradient(
-    90deg,
-    rgba(0,135,225,0) 0%,
-    rgba(0,135,225,0.18) 40%,
-    rgba(255,255,255,0.28) 50%,
-    rgba(0,135,225,0.18) 60%,
-    rgba(0,135,225,0) 100%
-  );
-
-  opacity: 0;
-  animation: interestedSheen 6s ease-in-out infinite; /* ✅ higher frequency */
-}
-
-/* longer sweep, shorter rest */
-@keyframes interestedSheen{
-  0%, 45% {
-    opacity: 0;
-    transform: rotate(18deg) translateX(-140%);
-  }
-
-  /* fade in and start moving */
-  50% {
-    opacity: 1;
-  }
-
-  /* keep it visible longer while sweeping */
-  75% {
-    opacity: 1;
-    transform: rotate(18deg) translateX(260%);
-  }
-
-  /* fade out at the end */
-  100%{
-    opacity: 0;
-    transform: rotate(18deg) translateX(260%);
-  }
 }
 
 @media (prefers-reduced-motion: reduce){

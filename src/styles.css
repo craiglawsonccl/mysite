@@ -372,3 +372,38 @@ form{ margin: 0 auto; width: 100%; max-width: 720px; }
     width: 100%;
   }
 }
+/* --- Shimmer fix for the sticky interested button --- */
+.sticky-interested{
+  position: relative;
+  overflow: hidden;      /* keeps shimmer inside the pill */
+  border-radius: 9999px; /* ensures corners clip correctly */
+  isolation: isolate;    /* makes layering reliable */
+}
+
+.sticky-interested.interested-shimmer::after{
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+
+  /* make the shimmer layer bigger than the button so it reaches all corners */
+  inset: -60%;
+
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255,255,255,0.25) 45%,
+    rgba(255,255,255,0.60) 50%,
+    rgba(255,255,255,0.25) 55%,
+    transparent 100%
+  );
+
+  transform: translateX(-140%) rotate(18deg);
+  animation: stickyShimmer 2.4s ease-in-out infinite;
+}
+
+@keyframes stickyShimmer{
+  0%   { transform: translateX(-140%) rotate(18deg); }
+  60%  { transform: translateX(140%)  rotate(18deg); }
+  100% { transform: translateX(140%)  rotate(18deg); }
+}
