@@ -37,6 +37,12 @@ import story1 from "../assets/imgs/client-stories/story-1.jpg";
 import transform1Before from "../assets/imgs/transformations/transform1.png";
 import transform1After from "../assets/imgs/transformations/transform1.1.png";
 
+import transform2Before from "../assets/imgs/transformations/transform2.jpg";
+import transform2After from "../assets/imgs/transformations/transform2.2.jpg";
+
+import transform3Before from "../assets/imgs/transformations/transform3.png";
+import transform3After from "../assets/imgs/transformations/transform3.1.png";
+
 import StickyInterestedButton from "./StickyInterestedButton";
 import LeadModal from "./LeadModal";
 
@@ -80,6 +86,21 @@ const EVENT_LOGOS = [
   },
 
 ];
+
+const GYM_STOCK_FALLBACKS = [
+  "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1600&q=80",
+  "https://images.unsplash.com/photo-1576678927484-cc907957088c?auto=format&fit=crop&w=1600&q=80",
+];
+
+const withWidth = (url, s) => {
+  const [w] = String(s || "1000/700").split("/");
+  return url.replace("w=1600", `w=${w}`);
+};
+
 
 const CLIENT_STORIES = [
   { 
@@ -150,6 +171,15 @@ I definitely feel I've improved strength and fitness with his programme and woul
 Rosemary`
   },
 ];
+
+export const CLIENT_STORIES_MAPPED = CLIENT_STORIES.map((story, i) => {
+  const fallback = GYM_STOCK_FALLBACKS[i % GYM_STOCK_FALLBACKS.length];
+  return {
+    ...story,
+    imgSrc: story.imgSrc || withWidth(fallback, story.s),
+  };
+});
+
 const TRANSFORMATIONS = [
   {
     before: transform1Before,
@@ -158,14 +188,14 @@ const TRANSFORMATIONS = [
     subtitle: "Lean muscle, better definition and confidence.",
   },
   {
-    before: transform1Before,
-    after: transform1After,
+    before: transform2Before,
+    after: transform2After,
     title: "Hybrid Training Results",
     subtitle: "Stronger, fitter and noticeably leaner.",
   },
   {
-    before: transform1Before,
-    after: transform1After,
+    before: transform3Before,
+    after: transform3After,
     title: "Strength & Aesthetics",
     subtitle: "Performance and physique improved together.",
   },
@@ -181,10 +211,10 @@ const FALLBACK_STORY_IMAGES = [
 ];
 
 function getStoryImage(story, index) {
-  return (
-    story.imgSrc ||
-    FALLBACK_STORY_IMAGES[index % FALLBACK_STORY_IMAGES.length]
-  );
+  if (story?.imgSrc) return story.imgSrc;
+
+  const fallback = GYM_STOCK_FALLBACKS[index % GYM_STOCK_FALLBACKS.length];
+  return withWidth(fallback, story?.s);
 }
 
 export default function VloggerTemplate() {
@@ -293,8 +323,8 @@ export default function VloggerTemplate() {
     const [showAllStories, setShowAllStories] = useState(false);
 
     const visibleStories = showAllStories
-      ? CLIENT_STORIES
-      : CLIENT_STORIES.slice(0, 3);
+      ? CLIENT_STORIES_MAPPED
+      : CLIENT_STORIES_MAPPED.slice(0, 3);
 
       const [activeStoryIndex, setActiveStoryIndex] = useState(null);
 
@@ -355,7 +385,7 @@ export default function VloggerTemplate() {
     return () => io.disconnect();
   }, [showAllStories]); // 👈 depend on showAllStories
 
-    const totalStories = CLIENT_STORIES.length;
+    const totalStories = CLIENT_STORIES_MAPPED.length;
 
       const openStory = (index) => {
         setActiveStoryIndex(index);
@@ -797,7 +827,7 @@ export default function VloggerTemplate() {
           <div className="masonry">
             {visibleStories.map((story, i) => {
               // Find this story’s index in the full CLIENT_STORIES array
-              const indexInAll = CLIENT_STORIES.findIndex(
+              const indexInAll = CLIENT_STORIES_MAPPED.findIndex(
                 (s) => s.t === story.t && s.m === story.m
               );
 
@@ -853,11 +883,8 @@ export default function VloggerTemplate() {
             </button>
 
             {(() => {
-              const story = CLIENT_STORIES[activeStoryIndex];
-
-              const imgSrc =
-                story.imgSrc ||
-                FALLBACK_STORY_IMAGES[activeStoryIndex % FALLBACK_STORY_IMAGES.length];
+              const story = CLIENT_STORIES_MAPPED[activeStoryIndex];
+              const imgSrc = story.imgSrc; // already gym placeholder if null originally
 
               return (
                 <>
