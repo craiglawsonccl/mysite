@@ -5,7 +5,7 @@ export default function StickyInterestedButton() {
 
   return (
     <button className="sticky-interested interested-shimmer" onClick={open}>
-    Interested?
+    Get Started
     </button>
 
   );
