@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Home from "./pages/Home";
 import Links from "./pages/Links";
+import Questionnaire from "./pages/Questionnaire";
 import "./styles.css";
 import LeadModal from "./components/LeadModal";
 
@@ -29,6 +30,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/links" element={<Links />} />
+        <Route path="/questionnaire" element={<Questionnaire />} />
       </Routes>
 
       {/* Mount globally so Links page can open it */}

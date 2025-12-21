@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaDumbbell,
   FaDownload,
@@ -19,6 +20,8 @@ const BASE_URL = import.meta.env.BASE_URL || "/";
 const HERO_IMAGES = [heroImg, heroImg2, heroImg3];
 
 export default function Links() {
+  const navigate = useNavigate();
+
   const ACCENT = "#0087e1";
 
   const [bgIndex, setBgIndex] = useState(0);
@@ -35,13 +38,9 @@ export default function Links() {
   const links = [
     {
       label: "Interested? (Quick Questionnaire)",
-      href: "#",
       icon: FaDumbbell,
       big: true,
-      onClick: (e) => {
-        e.preventDefault();
-        open();
-      },
+      onClick: () => navigate("/questionnaire"),
     },
     {
       label: "Download Free Program (PDF)",
@@ -62,12 +61,12 @@ export default function Links() {
   const socials = [
     {
       label: "Instagram",
-      href: "https://www.instagram.com/mcmullen_fit/",
+      href: "https://www.instagram.com/danthecoach/",
       icon: FaInstagram,
     },
     {
       label: "TikTok",
-      href: "https://www.tiktok.com/@mcmullen_fit1",
+      href: "https://www.tiktok.com/@danthecoach",
       icon: FaTiktok,
     },
   ];

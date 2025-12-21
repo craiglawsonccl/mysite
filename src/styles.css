@@ -407,3 +407,58 @@ form{ margin: 0 auto; width: 100%; max-width: 720px; }
   60%  { transform: translateX(140%)  rotate(18deg); }
   100% { transform: translateX(140%)  rotate(18deg); }
 }
+/* About Me: cap the before/after compare image size */
+#about .compare-wrapper {
+  width: 100%;
+  max-width: 520px;      /* <-- change this to whatever feels right */
+  margin: 0 auto;        /* center it */
+  aspect-ratio: 4 / 5;   /* keep your current ratio */
+  overflow: hidden;
+}
+
+/* Optional: if you also want a max height cap */
+#about .compare-wrapper {
+  max-height: 620px;     /* <-- optional cap */
+}
+
+/* Ensure images always fill the wrapper */
+#about .compare-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* About Me: cap the media container (the div.media.reveal...) */
+#about .media {
+  width: 100%;
+  max-width: 560px;          /* <-- set your max size */
+  margin: 0 auto;            /* center it */
+}
+
+/* If you want it to scale nicely across screen sizes */
+@media (min-width: 768px) {
+  #about .media {
+    max-width: 640px;        /* slightly larger on desktop */
+  }
+}
+.transformations-actions{
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+}
+
+.btn-showmore{
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+}
+
+.btn-showmore:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.09);
+  border-color: rgba(255,255,255,.28);
+}

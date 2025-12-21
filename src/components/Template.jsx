@@ -43,6 +43,9 @@ import transform2After from "../assets/imgs/transformations/transform2.2.jpg";
 import transform3Before from "../assets/imgs/transformations/transform3.png";
 import transform3After from "../assets/imgs/transformations/transform3.1.png";
 
+import transform4Before from "../assets/imgs/transformations/transform4.png";
+import transform4After from "../assets/imgs/transformations/transform4.1.png";
+
 import StickyInterestedButton from "./StickyInterestedButton";
 import LeadModal from "./LeadModal";
 
@@ -199,6 +202,12 @@ const TRANSFORMATIONS = [
     title: "Strength & Aesthetics",
     subtitle: "Performance and physique improved together.",
   },
+  {
+    before: transform4Before,
+    after: transform4After,
+    title: "Physique & Performance",
+    subtitle: "Diet and training for hybrid results.",
+  },
 ];
 
 const FALLBACK_STORY_IMAGES = [
@@ -235,6 +244,18 @@ export default function VloggerTemplate() {
   const [heroLoaded, setHeroLoaded] = useState(false);
 
   const [activeSection, setActiveSection] = useState("top");
+  const [showAllTransforms, setShowAllTransforms] = useState(false);
+
+  useEffect(() => {
+    if (!showAllTransforms) return;
+
+    // Wait one frame so the new cards exist in the DOM
+    requestAnimationFrame(() => {
+      document
+        .querySelectorAll("#transformations .reveal:not(.show)")
+        .forEach((el) => el.classList.add("show"));
+    });
+  }, [showAllTransforms]);
 
     // Highlight nav item based on section in view
   useEffect(() => {
@@ -490,7 +511,7 @@ export default function VloggerTemplate() {
     document.body.style.userSelect = "";
     resumeTickerDebounced();
   };
-
+  
   // Auto-scroll using requestAnimationFrame
   useEffect(() => {
     const el = tickerRef.current;
@@ -814,10 +835,24 @@ export default function VloggerTemplate() {
           </p>
 
           <div className="transformation-grid">
-            {TRANSFORMATIONS.map((t, idx) => (
-              <TransformationCard key={idx} {...t} />
-            ))}
+            {(showAllTransforms ? TRANSFORMATIONS : TRANSFORMATIONS.slice(0, 3)).map(
+              (t, idx) => (
+                <TransformationCard key={idx} {...t} />
+              )
+            )}
           </div>
+
+          {TRANSFORMATIONS.length > 3 && (
+            <div className="transformations-actions">
+              <button
+                type="button"
+                className="btn-showmore"
+                onClick={() => setShowAllTransforms((v) => !v)}
+              >
+                {showAllTransforms ? "Show less" : "Show more"}
+              </button>
+            </div>
+          )}
         </div>
       </section>
       
@@ -960,10 +995,16 @@ export default function VloggerTemplate() {
       {/* CONTACT */}
       <section id="contact">
         <div className="container">
-          <h2 className="reveal">Send Me a Message</h2>
-          <ContactForm />
+          <h2 className="reveal">Get Started</h2>
+
+          <div className="reveal" style={{ display: "flex", justifyContent: "center", marginTop: 18 }}>
+            <Link to="/questionnaire" className="get-started-btn">
+              Start the Questionnaire →
+            </Link>
+          </div>
         </div>
       </section>
+
 
 
       {/* FOOTER */}
@@ -1861,6 +1902,32 @@ body.modal-open {
   .lead-modal{
     transition: none;
   }
+}
+.get-started-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: min(520px, 100%);
+  padding: 18px 22px;
+  border-radius: 18px;
+  font-weight: 900;
+  font-size: 18px;
+  text-decoration: none;
+  color: #111;
+  background: #fff;
+  border: 2px solid rgba(255,255,255,.35);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.7);
+  transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+}
+
+.get-started-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 14px 38px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+.get-started-btn:active{
+  transform: translateY(0px);
+  opacity: .92;
 }
 
     `}</style>
