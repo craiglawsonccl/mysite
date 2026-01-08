@@ -5,7 +5,7 @@ export default function StickyInterestedButton() {
 
   return (
     <button className="sticky-interested interested-shimmer" onClick={open}>
-    Send Me a Message
+    Further Enquiries?
     </button>
 
   );

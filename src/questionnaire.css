@@ -220,3 +220,79 @@
 .questionnaire-page *::after {
   box-sizing: border-box;
 }
+.back-button {
+  background: none;
+  border: none;
+  color: #111;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.back-button:hover {
+  opacity: 0.7;
+}
+
+/* Mobile touch target */
+@media (max-width: 768px) {
+  .back-button {
+    font-size: 1rem;
+    padding: 0.75rem 0;
+  }
+}
+.questionnaire-page {
+  padding-top: 0;          /* remove top padding */
+}
+
+.container.questionnaire {
+  padding-top: 1rem;       /* controlled spacing instead */
+  margin-top: 0;
+}
+.back-button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.questionnaire-topbar {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0 0.5rem 0;   /* space from top */
+}
+
+/* Extra safety on small screens */
+@media (max-width: 768px) {
+  .questionnaire-topbar {
+    padding-left: 0.5rem;
+  }
+
+  .back-button {
+    font-size: 1rem;
+    padding: 0.65rem 1rem;   /* larger touch target */
+  }
+}
+@media (min-width: 1024px) {
+  .questionnaire-topbar {
+    padding-left: 1.5rem; /* move button away from left edge */
+  }
+}

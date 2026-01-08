@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { FaYoutube, FaInstagram, FaTiktok } from "react-icons/fa";
 import emailjs from "@emailjs/browser";
 
+import { FaDumbbell } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa6";
+import { FaMobileScreenButton } from "react-icons/fa6";
+import { FaComments } from "react-icons/fa6";
 
 import GlassNav from "./GlassNav";
 import TagembedFeed from "./TagembedFeed";
@@ -699,13 +703,10 @@ export default function VloggerTemplate() {
             Become a hybrid athlete – strong, fit and capable – without losing the muscle 
             you’ve worked hard to build. Look like an athlete and perform like one.
           </p>
-          <div className="hero-actions">
-            <a className="btn" href="#videos">
-              Watch Featured
-            </a>
-            <a className="btn alt" href="#about">
-              About Me
-            </a>
+          <div className="reveal" style={{ display: "flex", justifyContent: "center", marginTop: 18 }}>
+            <Link to="/questionnaire" className="get-started-btn">
+              Start the Questionnaire →
+            </Link>
           </div>
         </div>
       </section>
@@ -714,26 +715,30 @@ export default function VloggerTemplate() {
       <section id="features" className="features">
         <div className="container">
           <h2 className="reveal">Coaching</h2>
+
           <div className="grid four">
             <FeatureCard
-              letter="H"
+              icon={FaDumbbell}
               title="Hybrid Coaching"
-              text="Strength + endurance + aesthetics in one programme."
+              text="Hybrid coaching or basic strength/bodybuilding training"
             />
+
             <FeatureCard
-              letter="S"
-              title="Strength & Muscle"
-              text="Build serious strength and muscle without living in the gym."
+              icon={FaUser}
+              title="1:1 Training"
+              text="1:1 personal training or online coaching"
             />
+
             <FeatureCard
-              letter="E"
-              title="Endurance & Engine"
-              text="Run, row or bike further and faster while keeping your size."
+              icon={FaMobileScreenButton}
+              title="App Access"
+              text="Access to training app"
             />
+
             <FeatureCard
-              letter="N"
-              title="Nutrition & Lifestyle"
-              text="Simple nutrition and habits to support hybrid performance."
+              icon={FaComments}
+              title="Stay Connected"
+              text="Constant contact with me, your coach"
             />
 
           </div>
@@ -803,20 +808,20 @@ export default function VloggerTemplate() {
               without having to look like a typical endurance athlete.
             </p>
 
-            <ul className="about-list reveal">
-              <li>Hybrid coaching that blends strength, conditioning and endurance.</li>
-              <li>1:1 in-person coaching and fully online coaching options.</li>
-              <li>Training plans tailored to your goals, schedule and any injuries.</li>
-              <li>Simple, sustainable nutrition guidance – no extreme diets.</li>
+            {/* <ul className="about-list reveal">
+              <li>Hybrid coaching or basic strength/bodybuilding training</li>
+              <li>1:1 personal training or online coaching</li>
+              <li>Access to training app</li>
+              <li>Constant contact with me, your coach</li>
               <li>Regular check-ins and support so you’re never doing this alone.</li>
-            </ul>
+            </ul> */}
 
             <div className="hero-actions reveal">
               <a className="btn" href="#contact">
                 Book a Free Chat
               </a>
               <a className="btn alt" href="#videos">
-                See Client Results
+                See Client Testimonials
               </a>
             </div>
           </div>
@@ -860,7 +865,7 @@ export default function VloggerTemplate() {
       {/* FEATURED / MASONRY */}
       <section id="videos">
         <div className="container">
-          <h2 className="reveal">Client Stories</h2>
+          <h2 className="reveal">Client Testimonials</h2>
           <div className="masonry">
             {visibleStories.map((story, i) => {
               // Find this story’s index in the full CLIENT_STORIES array
@@ -1052,17 +1057,18 @@ export default function VloggerTemplate() {
   );
 }
 
-function FeatureCard({ letter, title, text }) {
+function FeatureCard({ icon: Icon, title, text }) {
   return (
-    <div className="card reveal">
-      <div className="icon">{letter}</div>
-      <div>
-        <h3>{title}</h3>
-        <p>{text}</p>
+    <div className="feature-card reveal">
+      <div className="icon">
+        <Icon size={22} />
       </div>
+      <h3>{title}</h3>
+      <p>{text}</p>
     </div>
   );
 }
+
 function TransformationCard({ before, after, title, subtitle }) {
   return (
     <div className="transformation-card reveal">
@@ -1928,6 +1934,152 @@ body.modal-open {
 .get-started-btn:active{
   transform: translateY(0px);
   opacity: .92;
+}
+.icon {
+  width: 56px;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(135deg, #e0f2ff, #bae6fd);
+  border-radius: 14px;
+
+  flex-shrink: 0; /* 🔑 prevents stretching */
+}
+.feature-card {
+  background: rgba(255, 255, 255, 0.04); /* lighter than bg */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+
+  padding: 1.75rem 1.5rem;
+  backdrop-filter: blur(6px);
+}
+.feature-card .icon {
+  margin-bottom: 1rem;
+}
+.feature-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.feature-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+/* Give more space to the image side */
+.split {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr; /* image | text */
+  gap: 4rem;
+}
+.media {
+  max-width: 100%;
+}
+
+.compare-wrapper {
+  transform: scale(1.05); /* subtle, premium */
+}
+.about-copy {
+  padding-right: 3rem;
+}
+@media (min-width: 1280px) {
+  .about-copy {
+    padding-right: 5rem;
+  }
+}
+/* MOBILE: stack image above text */
+@media (max-width: 768px) {
+  .split {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Image first */
+  .media {
+    order: 1;
+  }
+
+  /* Text second */
+  .about-copy {
+    order: 2;
+    padding-right: 0;        /* remove desktop safe spacing */
+    padding-left: 0;
+    text-align: center;
+  }
+
+  /* Center CTAs on mobile */
+  .hero-actions {
+    justify-content: center;
+  }
+}
+@media (max-width: 768px) {
+  .compare-wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 768px) {
+  /* Force override any grid layout */
+  .container.split {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2rem;
+  }
+
+  .container.split > .media {
+    order: 1;
+  }
+
+  .container.split > .about-copy {
+    order: 2;
+    padding-right: 0;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  /* just in case any grid columns are still being applied */
+  .container.split {
+    grid-template-columns: none !important;
+  }
+}
+.lead-subtitle {
+  margin: 0 0 12px;
+  opacity: 0.9;
+}
+
+.contact-card {
+  display: grid;
+  gap: 14px;
+}
+
+.contact-number-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+}
+
+.contact-number {
+  font-weight: 600;
+}
+
+.iconBtn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
 }
 
     `}</style>

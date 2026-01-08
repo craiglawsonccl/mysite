@@ -25,6 +25,7 @@ const DEFAULT_FORM = {
   nutrition_lunch: "",
   nutrition_dinner: "",
   nutrition_snacks: "",
+  training_days_per_week: "",
   training_preferences: "",
   other_requests: "",
   honey: "", // honeypot
@@ -104,6 +105,7 @@ export default function Questionnaire() {
       `- Snacks: ${form.nutrition_snacks || "-"}`,
       ``,
       `Training Preferences: ${form.training_preferences || "-"}`,
+      `Training Days/Week: ${form.training_days_per_week || "-"}`,
       `Other Requests: ${form.other_requests || "-"}`,
     ].join("\n");
 
@@ -156,6 +158,17 @@ Snacks: ${form.nutrition_snacks || "-"}`,
   return (
     <main className="questionnaire-page">
       <section className="container questionnaire">
+        <div className="questionnaire-topbar">
+          <button
+            type="button"
+            className="back-button"
+            onClick={() => navigate("/")}
+            aria-label="Go back to home page"
+          >
+            ← Back
+          </button>
+        </div>
+
         <h1>Coaching Questionnaire</h1>
         <p className="lead">
           Fill this out and Daniel will reply with the next steps.
@@ -306,6 +319,24 @@ Snacks: ${form.nutrition_snacks || "-"}`,
               onChange={update("medication")}
               placeholder="e.g. asthma inhaler, blood pressure meds (or 'none')"
             />
+          </label>
+
+          <label>
+            How many times per week can you train?
+            <select
+              value={form.training_days_per_week}
+              onChange={update("training_days_per_week")}
+            >
+              <option value="">Select…</option>
+              <option value="0">0 days/week</option>
+              <option value="1">1 days/week</option>
+              <option value="2">2 days/week</option>
+              <option value="3">3 days/week</option>
+              <option value="4">4 days/week</option>
+              <option value="5">5 days/week</option>
+              <option value="6">6 days/week</option>
+              <option value="7">7 days/week</option>
+            </select>
           </label>
 
           <div className="form-row">
